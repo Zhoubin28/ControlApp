@@ -127,13 +127,45 @@ public:
 		return m_port->isConnected();
 	}
 
-	void oneStep()
+	int oneStep()
 	{
 		while (m_port->isConnected())
 		{
-			m_port->writeSerialPort(m_command.c_str(), MAX_DATA_LENGTH)
+			m_port->writeSerialPort(m_command.c_str(), MAX_DATA_LENGTH);
+			char respond[MAX_DATA_LENGTH];
+			m_port->readSerialPort(respond, MAX_DATA_LENGTH);
+
+			if (respond[0] == 'F') break;
 		}
+		return 1;
 	}
+
+
+	//int laserOn(std::string & laseron)
+	//{
+	//	while (m_port->isConnected())
+	//	{
+	//		m_port->writeSerialPort(laser.c_str(), MAX_DATA_LENGTH);
+	//		char respond[MAX_DATA_LENGTH];
+	//		m_port->readSerialPort(respond, MAX_DATA_LENGTH);
+
+	//		if (respond[0] == 'F') break;
+	//	}
+	//	return 1;
+	//}
+
+	//int laserOff(std::string & laseroff)
+	//{
+	//	while (m_port->isConnected())
+	//	{
+	//		m_port->writeSerialPort(laseroff.c_str(), MAX_DATA_LENGTH);
+	//		char respond[MAX_DATA_LENGTH];
+	//		m_port->readSerialPort(respond, MAX_DATA_LENGTH);
+
+	//		if (respond[0] == 'F') break;
+	//	}
+	//	return 1;
+	//}
 
 
 
