@@ -28,10 +28,10 @@ static void clearBuffer(cv::VideoCapture *const capture,
 	{
 		if (*startCapture == false)
 		{
-			//FrameLock.lock();
+			FrameLock.lock();
 			capture->grab();
 			//*capture >> *frame;
-			//FrameLock.unlock();
+			FrameLock.unlock();
 
 			//DisplayImage(frame);
 		}
@@ -62,10 +62,13 @@ public:
 
 	bool startCapture()
 	{
+
 		if (!m_capture.open(m_index)) return false;
 
 		m_capture.set(cv::CAP_PROP_FRAME_WIDTH, 2592);
 		m_capture.set(cv::CAP_PROP_FRAME_HEIGHT, 1944);
+
+
 		//m_capture.set(cv::CAP_PROP_EXPOSURE, -5);
 		//m_capture.set(cv::CAP_PROP_BUFFERSIZE, 1);
 
@@ -83,7 +86,9 @@ public:
 
 	void storeImage(int level)
 	{
+		m_captureFrame.lock();
 		m_capture.retrieve(m_image);
+		m_captureFrame.unlock();
 
 		char buffer[8];
 		snprintf(buffer, sizeof(buffer), "%d.jpg", level);

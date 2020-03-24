@@ -23,5 +23,11 @@
     <ClInclude Include="Camera.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="StepMptor.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemConfigInfo.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
